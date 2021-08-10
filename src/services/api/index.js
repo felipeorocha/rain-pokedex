@@ -6,7 +6,7 @@ const fetchApi = axios.create({
   baseURL: BASE_URL
 });
 
-export const fetchAllPokemons = url => {
+export const fetchPokemons = url => {
   return fetchApi.get(url);
 }
 
