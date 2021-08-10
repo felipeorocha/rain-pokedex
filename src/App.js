@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
-import { fetchAllPokemons } from './services/api';
+import {
+  fetchPokemons as fetchAllPokemons,
+  fetchPokemons as fetchPokemon
+} from './services/api';
 
 const App = () => {
   const [pokemon, setPokemon] = useState([]);
@@ -10,15 +13,34 @@ const App = () => {
 
   useEffect(() => {
     const getPokemon = async () => {
-      const res = await fetchAllPokemons(initialUrl);
-      setNextPokemonPage(res.next);
-      setPrevPokemonPage(res.previous);
+      const {
+        data: {
+          next,
+          previous,
+          results
+        }
+      } = await fetchAllPokemons(initialUrl);
+
+      setNextPokemonPage(next);
+      setPrevPokemonPage(previous);
+      await loadingPokemon(results);
       setLoading(false);
     }
 
     getPokemon();
   }, []);
 
+  const loadingPokemon = async pokemonList => {
+    const pokemons = await Promise.all(
+      pokemonList.map(async pokemonItem => {
+        const pokemonsListData = await fetchPokemon(pokemonItem.url);
+        return pokemonsListData;
+    }));
+
+    setPokemon(pokemons);
+  }
+
+  console.log('poke', pokemon);
   return (
     <div className="App">
       {loading ? <h1>Loading...</h1> : (
