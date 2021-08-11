@@ -19,7 +19,6 @@ const App = () => {
   const [nextPokemonPage, setNextPokemonPage] = useState('');
   const [prevPokemonPage, setPrevPokemonPage] = useState('');
   const [loading, setLoading] = useState(true);
-  // const [pokemonFilter, setPokemonFilter] = useState('');
   const { filter } = usePokemonFilter();
   const initialUrl = 'pokemon';
 
