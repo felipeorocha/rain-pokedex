@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import {
   fetchPokemons as fetchAllPokemons,
   fetchPokemons as fetchPokemon,
-  fetchPokemons as searchPokemon
 } from './services/api';
 import Button from './components/Button';
 import Card from './components/Card';
@@ -13,13 +12,15 @@ import Search from './components/Search';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
 import './App.css';
+import { usePokemonFilter } from './state/providers/pokemons';
 
 const App = () => {
   const [pokemon, setPokemon] = useState([]);
   const [nextPokemonPage, setNextPokemonPage] = useState('');
   const [prevPokemonPage, setPrevPokemonPage] = useState('');
   const [loading, setLoading] = useState(true);
-  const [pokemonFilter, setPokemonFilter] = useState('');
+  // const [pokemonFilter, setPokemonFilter] = useState('');
+  const { filter } = usePokemonFilter();
   const initialUrl = 'pokemon';
 
   useEffect(() => {
@@ -91,10 +92,10 @@ const App = () => {
       { loading ? <Loader /> : (
         <>
           <Header />
-          <Search filteredPokemon={(query) => setPokemonFilter(query)} />
+          <Search />
           <div className="grid-container">
             { pokemon && pokemon.map((poke, index) => {
-                return poke.name.includes(pokemonFilter) &&
+                return poke.name.includes(filter) &&
                 <Card key={index} pokemon={poke} />        
             }) }
           </div>

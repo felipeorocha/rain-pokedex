@@ -1,18 +1,16 @@
-import { useState } from 'react';
 import { Filter } from './styles';
 import { FaSearch, FaTimes } from "react-icons/fa";
 
+import { usePokemonFilter } from '../../state/providers/pokemons';
 
-const Search = ({ filteredPokemon }) => {
-  const [filter, setFilter] = useState('');
+const Search = () => {
+  const { filter, setFilter } = usePokemonFilter();
 
   const handleChange = e => {
     setFilter(e.target.value);
-    filteredPokemon(filter);
   }
 
   const handleSearchClear = () => {
-    filteredPokemon(filter);
     setFilter('');
   }
 

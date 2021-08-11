@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import PokemonProvider from './state/providers/pokemons';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <PokemonProvider>
+      <App />
+    </PokemonProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
