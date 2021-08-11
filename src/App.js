@@ -42,8 +42,9 @@ const App = () => {
   }, []);
 
   const nextPage = async () => {
+    if (!nextPokemonPage) return;
+    
     setLoading(true);
-
     const {
       data: {
         next,
@@ -99,10 +100,10 @@ const App = () => {
             }) }
           </div>
           <div className="buttons-container">
-            <Button onClick={prevPage}>
+            <Button id="prev" onClick={prevPage} navigate={prevPokemonPage}>
               <FaAngleLeft />
             </Button>
-            <Button onClick={nextPage}>
+            <Button id="next" onClick={nextPage} navigate={nextPokemonPage}>
               <FaAngleRight />
             </Button>
           </div>

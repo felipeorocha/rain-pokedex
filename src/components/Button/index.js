@@ -1,9 +1,9 @@
 import { ButtonContainer } from './styles';
 
-const Button = ({ children, onClick }) => {
+const Button = ({ children, onClick, id, navigate }) => {
   return (
     <ButtonContainer>
-      <button onClick={() => onClick()}>{children}</button>
+      <button id={id} navigate={navigate} onClick={() => onClick()}>{children}</button>
     </ButtonContainer>
   );
 }
