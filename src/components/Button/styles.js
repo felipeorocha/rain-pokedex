@@ -5,8 +5,17 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   margin: 20px 0;
 
+  .btn--login {
+    margin: 0;
+
+    button {
+      margin: 0;
+    }
+  }
+
   button {
-    display: flex;
+    /* display: flex; */
+    display: grid;
     align-items: center;
     border-style: none;
     color: #fff;
@@ -16,7 +25,7 @@ export const ButtonContainer = styled.div`
     border-radius: 5px;
     padding: 12px 18px;
     margin: 10px 10px 10px 0;
-    background: ${props => props.children.props.navigate ? '#3b4cce' : '#666666d9'};
+    background: ${props => props.children.props.primary ? '#3b4cce' : '#666666d9'};
 
     &:hover {
       transform: scale(1.05);
