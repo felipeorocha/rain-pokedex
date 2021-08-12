@@ -1,117 +1,23 @@
-import { useEffect, useState } from 'react';
-import {
-  fetchPokemons as fetchAllPokemons,
-  fetchPokemons as fetchPokemon,
-} from './services/api';
-import Button from './components/Button';
-import Card from './components/Card';
-import Header from './components/Header';
-import Loader from './components/Loader';
-import Search from './components/Search';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import SignUp from './pages/SignUp';
+import PrivateRoute from './components/PrivateRoute';
 
-import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
-
-import './App.css';
-import { usePokemonFilter } from './state/providers/pokemons';
+import { AuthProvider } from './state/providers/auth';
 
 const App = () => {
-  const [pokemon, setPokemon] = useState([]);
-  const [nextPokemonPage, setNextPokemonPage] = useState('');
-  const [prevPokemonPage, setPrevPokemonPage] = useState('');
-  const [loading, setLoading] = useState(true);
-  const { filter } = usePokemonFilter();
-  const initialUrl = 'pokemon';
-
-  useEffect(() => {
-    const getPokemon = async () => {
-      const {
-        data: {
-          next,
-          previous,
-          results
-        }
-      } = await fetchAllPokemons(initialUrl);
-
-      setNextPokemonPage(next);
-      setPrevPokemonPage(previous);
-      await loadingPokemon(results);
-      setLoading(false);
-    }
-
-    getPokemon();
-  }, []);
-
-  const nextPage = async () => {
-    if (!nextPokemonPage) return;
-    
-    setLoading(true);
-    const {
-      data: {
-        next,
-        previous,
-        results
-      }
-    } = await fetchAllPokemons(nextPokemonPage);
-
-    await loadingPokemon(results);
-    setNextPokemonPage(next);
-    setPrevPokemonPage(previous);
-    setLoading(false);
-  }
-
-  const prevPage = async () => {
-    if (!prevPokemonPage) return;
-
-    setLoading(true);
-    const {
-      data: {
-        next,
-        previous,
-        results
-      }
-    } = await fetchAllPokemons(prevPokemonPage);
-
-    await loadingPokemon(results);
-    setNextPokemonPage(next);
-    setPrevPokemonPage(previous);
-    setLoading(false);
-  }
-
-  const loadingPokemon = async pokemonList => {
-    const pokemons = await Promise.all(
-      pokemonList.map(async pokemonItem => {
-        const pokemonsListData = await fetchPokemon(pokemonItem.url);
-        return pokemonsListData.data;
-    }));
-
-    setPokemon(pokemons);
-  }
-
   return (
-    <div>
-      { loading ? <Loader /> : (
+    <AuthProvider>
+      <Router>
         <>
-          <Header />
-          <Search />
-          <div className="grid-container">
-            { pokemon && pokemon.map((poke, index) => {
-                return poke.name.includes(filter) &&
-                <Card key={index} pokemon={poke} />        
-            }) }
-          </div>
-          <div className="buttons-container">
-            <Button id="prev" onClick={prevPage} navigate={prevPokemonPage}>
-              <FaAngleLeft />
-            </Button>
-            <Button id="next" onClick={nextPage} navigate={nextPokemonPage}>
-              <FaAngleRight />
-            </Button>
-          </div>
+          <PrivateRoute exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/sign-up" component={SignUp} />
         </>
-      )}
-
-    </div>
+      </Router>
+    </AuthProvider>
   );
-}
+};
 
 export default App;
