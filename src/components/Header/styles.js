@@ -4,6 +4,7 @@ export const Header = styled.div`
     background: #3b4cce;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     margin-bottom: 24px;
     padding: 12px 0;
     color: #fff;
@@ -12,4 +13,9 @@ export const Header = styled.div`
       width: 70px;
       margin-right: 18px;
     }
+`;
+
+export const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
 `;
