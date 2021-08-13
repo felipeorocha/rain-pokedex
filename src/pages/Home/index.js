@@ -14,15 +14,19 @@ import { GridContainer, ButtonsContainer } from './styles';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
 import { usePokemonFilter } from '../../state/providers/pokemons';
+import { useStared } from '../../state/providers/stared';
+import StaredProvider from '../../state/providers/stared';
 
-const Home = () => {
+const Home = ({ history }) => {
   const [pokemon, setPokemon] = useState([]);
   const [nextPokemonPage, setNextPokemonPage] = useState('');
   const [prevPokemonPage, setPrevPokemonPage] = useState('');
   const [loading, setLoading] = useState(true);
   const { filter } = usePokemonFilter();
+  const { stared } = useStared();
   const initialUrl = 'pokemon';
 
+  
   useEffect(() => {
     const getPokemon = async () => {
       const {
@@ -32,7 +36,8 @@ const Home = () => {
           results
         }
       } = await fetchAllPokemons(initialUrl);
-
+      
+      console.log('stareddd', stared);
       setNextPokemonPage(next);
       setPrevPokemonPage(previous);
       await loadingPokemon(results);
@@ -40,7 +45,7 @@ const Home = () => {
     }
 
     getPokemon();
-  }, []);
+  }, [stared]);
 
   const nextPage = async () => {
     if (!nextPokemonPage) return;
@@ -92,13 +97,15 @@ const Home = () => {
     <div>
       { loading ? <Loader /> : (
         <>
-          <Header />
+          <Header history={history} />
           <Search />
           <GridContainer>
+            <StaredProvider>
             { pokemon && pokemon.map((poke, index) => {
                 return poke.name.includes(filter) &&
-                <Card key={index} pokemon={poke} />        
-            }) }
+                  <Card key={index} pokemon={poke} />
+                }) }
+            </StaredProvider>
           </GridContainer>
           <ButtonsContainer>
             <Button id="prev" onClick={prevPage} primary={prevPokemonPage}>
