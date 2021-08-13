@@ -1,12 +1,27 @@
+import { useState } from 'react';
 import {
   CardContainer,
   CardInfo,
   CardTypes
 } from './styles';
 
+import { FaHeart } from "react-icons/fa";
+
+import { useStared } from '../../state/providers/stared';
+
 const Card = ({ pokemon }) => {
+  const [selected, setSelected] = useState(false);
+  const { stared, addPoke } = useStared();
+  
+  
+  const handleSelect = () => {
+    setSelected(!selected);
+    addPoke(pokemon);
+  };
+
   return (
-    <CardContainer>
+    <CardContainer onClick={handleSelect} selected={selected}>
+      <FaHeart />
       <div className="Card__img">
         <img src={pokemon.sprites.front_default} alt="" />
       </div>

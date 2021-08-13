@@ -6,6 +6,7 @@ export const CardContainer = styled.div`
   padding: 30px;
   border-radius: 10px;
   cursor: pointer;
+  ${({ stared }) => stared && 'pointer-events: none;'};
 
   &::before {
     content: '';
