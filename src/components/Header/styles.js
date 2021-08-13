@@ -35,6 +35,7 @@ export const Star = styled.div`
   cursor: pointer;
   border-radius: 50%;
   box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+  color: #fff;
 
   &:hover {
     box-shadow: rgb(0 0 0 / 60%) 0px 5px 20px;
