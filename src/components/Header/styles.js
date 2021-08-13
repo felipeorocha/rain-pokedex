@@ -6,7 +6,7 @@ export const Header = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 24px;
-    padding: 12px 0;
+    padding: 10px 32px;
     color: #fff;
 
     img {

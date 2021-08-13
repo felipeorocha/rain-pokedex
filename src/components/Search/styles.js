@@ -10,6 +10,7 @@ export const Filter = styled.div`
   margin: 0 auto;
 
   input {
+    height: 50px;
     width: 100%;
     padding: 8px 8px 8px 34px;
     border-radius: 8px;
