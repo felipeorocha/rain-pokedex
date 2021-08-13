@@ -1,17 +1,35 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
-  background: #fff;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  background: ${props => props.selected ? '#bbbbbb3d' : '#fff'};
+  box-shadow: ${props => props.selected ? 'rgb(0 0 0 / 35%) 0px 50px 90px' : 'rgba(0, 0, 0, 0.35) 0px 5px 15px'};
   padding: 30px;
   border-radius: 10px;
+  cursor: pointer;
 
   &::before {
     content: '';
   }
 
+  &:hover {
+    background: #f3f3f3;
+    box-shadow: rgb(0 0 0 / 55%) 0px 0px 50px;
+    transition: 0.05s ease-in-out;
+  }
+
+  svg {
+    font-size: 28px;
+    ${({ selected }) => selected && 'filter: drop-shadow(0px 0px 22px rgba(0, 0, 0, 2));'};
+    color: ${props => props.selected ? '#e62424' : '#9e9e9e'};
+  }
+
   .Card__img {
-    text-align: center;    
+    text-align: center;
+
+    img {
+      width: 55%;
+      image-rendering: pixelated;
+    }
   }
 
   .Card__name {
