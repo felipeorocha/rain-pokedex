@@ -2,20 +2,14 @@ import { createContext, useContext, useState } from "react";
 
 const StaredContext = createContext({});
 
+const localSaved = JSON.parse(localStorage.getItem('@stared-pokemons')) || '';
+
 export default function StaredProvider({ children }) {
   const [stared, setStared] = useState([]);
 
-  const staredItems = JSON.parse(localStorage.getItem('@stared-items'));
-
   const addPoke = poke => {
-    setStared(prev => {
-
-      if (!staredItems) {
-        localStorage.setItem('@stared-items', JSON.stringify(prev.includes(poke) ? stared.filter(item => item !== poke) : [...prev, poke]));
-      } else {
-        staredItems && localStorage.setItem('@stared-items', JSON.stringify(staredItems.includes(poke) ? staredItems.filter(item => item !== poke) : [...staredItems, poke]));
-      }
-    });
+    setStared(prev => [...prev, poke]);
+    localStorage.setItem('@stared-pokemons', JSON.stringify(stared));
   }
 
   return (

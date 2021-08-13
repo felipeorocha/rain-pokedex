@@ -6,7 +6,7 @@ import Button from '../../components/Button';
 const Stared = ({ history }) => {
   const { stared } = useStared();
 
-  const staredItems = JSON.parse(localStorage.getItem('@stared-items'));
+  const staredItems = JSON.parse(localStorage.getItem('@stared-pokemons'));
 
   const redirToHome = () => {
     history.push('/');

@@ -97,7 +97,6 @@ const Home = ({ history }) => {
     <div>
       { loading ? <Loader /> : (
         <>
-          <Header history={history} />
           <Search />
           <GridContainer>
             <StaredProvider>
