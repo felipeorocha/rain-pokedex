@@ -5,6 +5,7 @@ import Button from '../../components/Button';
 
 const Stared = ({ history }) => {
   const { stared } = useStared();
+  console.log('stared state', stared);
 
   const staredItems = JSON.parse(localStorage.getItem('@stared-pokemons'));
 
@@ -26,7 +27,7 @@ const Stared = ({ history }) => {
   return (
     <>
       <GridContainer>
-        {!staredItems ? emptyStared() : staredItems.map((poke, index) => {
+        {!staredItems.length ? emptyStared() : staredItems.map((poke, index) => {
           return <Card key={index} pokemon={poke} stared={stared} />          
         })}
       </GridContainer>

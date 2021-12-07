@@ -6,6 +6,9 @@ import Stared from './pages/Stared';
 import PrivateRoute from './components/PrivateRoute';
 
 import { AuthProvider } from './state/providers/auth';
+import StaredProvider from './state/providers/stared';
+
+
 import Header from './components/Header';
 
 const App = () => {
@@ -17,7 +20,9 @@ const App = () => {
             <PrivateRoute exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
             <Route exact path="/sign-up" component={SignUp} />
-            <Route exact path="/stared" component={Stared} />
+            <StaredProvider>
+              <Route exact path="/stared" component={Stared} />
+            </StaredProvider>
           </>
       </Router>
     </AuthProvider>

@@ -12,6 +12,7 @@ import { useStared } from '../../state/providers/stared';
 const Card = ({ pokemon }) => {
   const [selected, setSelected] = useState(false);
   const { stared, addPoke } = useStared();
+  console.log('STARED TEST', stared);
   
   
   const handleSelect = () => {

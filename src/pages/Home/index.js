@@ -5,7 +5,6 @@ import {
 } from '../../services/api';
 import Button from '../../components/Button';
 import Card from '../../components/Card';
-import Header from '../../components/Header';
 import Loader from '../../components/Loader';
 import Search from '../../components/Search';
 
@@ -14,16 +13,14 @@ import { GridContainer, ButtonsContainer } from './styles';
 import { FaAngleRight, FaAngleLeft } from "react-icons/fa";
 
 import { usePokemonFilter } from '../../state/providers/pokemons';
-import { useStared } from '../../state/providers/stared';
 import StaredProvider from '../../state/providers/stared';
 
-const Home = ({ history }) => {
+const Home = () => {
   const [pokemon, setPokemon] = useState([]);
   const [nextPokemonPage, setNextPokemonPage] = useState('');
   const [prevPokemonPage, setPrevPokemonPage] = useState('');
   const [loading, setLoading] = useState(true);
   const { filter } = usePokemonFilter();
-  const { stared } = useStared();
   const initialUrl = 'pokemon';
 
   
@@ -37,15 +34,13 @@ const Home = ({ history }) => {
         }
       } = await fetchAllPokemons(initialUrl);
       
-      console.log('stareddd', stared);
       setNextPokemonPage(next);
       setPrevPokemonPage(previous);
       await loadingPokemon(results);
       setLoading(false);
     }
-
     getPokemon();
-  }, [stared]);
+  }, []);
 
   const nextPage = async () => {
     if (!nextPokemonPage) return;
