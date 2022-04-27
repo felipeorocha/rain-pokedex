@@ -1,16 +1,21 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useLocalStorage } from '../useLocalStorage';
 
 const StaredContext = createContext({});
 
-// const localSaved = JSON.parse(localStorage.getItem('@stared-pokemons'));
-
 export default function StaredProvider({ children }) {
   const [stared, setStared] = useState([]);
-  
-  const addPoke = poke => {
-    setStared(prev => [...prev, poke]);
+  const [, setState] = useLocalStorage('@stared-pokemons');
+
+  useEffect(() => {
+    console.log('Update state', stared);
+    setState(stared, '@stared-pokemons')
+  }, [setState, stared]);
+
+
+  const addPoke = pokemon => {
+    setStared([...stared, pokemon]);
   }
-  localStorage.setItem('@stared-pokemons', JSON.stringify(stared));
 
   return (
     <StaredContext.Provider

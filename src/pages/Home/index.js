@@ -22,7 +22,6 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const { filter } = usePokemonFilter();
   const initialUrl = 'pokemon';
-
   
   useEffect(() => {
     const getPokemon = async () => {
