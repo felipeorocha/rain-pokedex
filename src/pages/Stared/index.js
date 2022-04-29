@@ -1,11 +1,8 @@
-import { useStared } from '../../state/providers/stared';
 import Card from '../../components/Card';
 import { GridContainer } from '../../pages/Home/styles';
 import Button from '../../components/Button';
 
 const Stared = ({ history }) => {
-  const { stared } = useStared();
-
   const staredItems = JSON.parse(localStorage.getItem('@stared-pokemons'));
 
   const redirToHome = () => {
@@ -27,7 +24,7 @@ const Stared = ({ history }) => {
     <>
       <GridContainer>
         {staredItems.length === 0 ? emptyStared() : staredItems.map((pokemon, index) => {
-          return <Card key={index} pokemon={pokemon} stared={stared} />          
+          return <Card key={index} pokemon={pokemon} stared choosenStared />          
         })}
       </GridContainer>
       <Button onClick={redirToHome}>Back to home</Button>  

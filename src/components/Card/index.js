@@ -9,19 +9,20 @@ import { FaHeart } from "react-icons/fa";
 
 import { useStared } from '../../state/providers/stared';
 
-const Card = ({ pokemon }) => {
+const Card = ({ pokemon, stared: choosen, choosenStared }) => {
   const [selected, setSelected] = useState(false);
-  const { addPoke } = useStared();
+  const { stared, addPoke, removePoke } = useStared();
 
   const { name, sprites, types, weight, height, abilities } = pokemon
   
   const handleSelect = () => {
     setSelected(!selected);
-    addPoke({ name, sprites, types, weight, height, abilities });
+
+    return stared.map(item => item.name).includes(name) ? removePoke(pokemon) : addPoke({ name, sprites, types, weight, height, abilities })
   };
 
   return (
-    <CardContainer onClick={handleSelect} selected={selected}>
+    <CardContainer onClick={handleSelect} selected={selected || choosenStared} stared={choosen}>
       <FaHeart />
       <div className="Card__img">
         <img src={sprites.front_default} alt="" />

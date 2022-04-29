@@ -4,17 +4,26 @@ import { useLocalStorage } from '../useLocalStorage';
 const StaredContext = createContext({});
 
 export default function StaredProvider({ children }) {
-  const [stared, setStared] = useState([]);
-  const [, setState] = useLocalStorage('@stared-pokemons');
+  const [state, setState] = useLocalStorage('@stared-pokemons');
+  const [stared, setStared] = useState(state || []);
 
   useEffect(() => {
-    console.log('Update state', stared);
     setState(stared, '@stared-pokemons')
   }, [setState, stared]);
 
 
   const addPoke = pokemon => {
-    setStared([...stared, pokemon]);
+    if (stared.length !== 0) {      
+      setStared([...stared, pokemon])
+      console.log(state)
+    } else {
+      setStared([pokemon])
+    }
+  }
+
+  const removePoke = pokemon => {
+    const filterPokemons = stared.filter(staredPokemon => staredPokemon.name !== pokemon.name)
+    setStared(filterPokemons)
   }
 
   return (
@@ -22,6 +31,7 @@ export default function StaredProvider({ children }) {
       value={{
         stared,
         addPoke,
+        removePoke,
       }}
     >
       {children}
@@ -31,7 +41,7 @@ export default function StaredProvider({ children }) {
 
 export function useStared() {
   const context = useContext(StaredContext);
-  const { stared, addPoke } = context;
+  const { stared, addPoke, removePoke } = context;
 
-  return { stared, addPoke };
+  return { stared, addPoke, removePoke };
 }

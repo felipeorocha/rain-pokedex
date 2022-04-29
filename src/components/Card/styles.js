@@ -21,7 +21,7 @@ export const CardContainer = styled.div`
   svg {
     font-size: 28px;
     ${({ selected }) => selected && 'filter: drop-shadow(0px 0px 22px rgba(0, 0, 0, 2));'};
-    color: ${props => props.selected ? '#e62424' : '#9e9e9e'};
+    color: ${({ selected }) => selected ? '#e62424' : '#9e9e9e'};
   }
 
   .Card__img {
