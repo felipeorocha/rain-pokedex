@@ -10,7 +10,6 @@ import StaredProvider from './state/providers/stared';
 
 
 import Header from './components/Header';
-// test
 const App = () => {
   return (
     <AuthProvider>
