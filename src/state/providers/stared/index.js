@@ -13,10 +13,8 @@ export default function StaredProvider({ children }) {
 
 
   const addPoke = pokemon => {
-    console.log('POKEMON:::: ', pokemon)
     if (stared.length !== 0) {      
       setStared([...stared, pokemon])
-      console.log(state)
     } else {
       setStared([pokemon])
     }
