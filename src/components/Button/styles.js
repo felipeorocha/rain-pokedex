@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin: 10px 0;
 
   .btn--login {
     margin: 0;

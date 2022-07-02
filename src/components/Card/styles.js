@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 
 export const CardContainer = styled.div`
-  background: ${props => props.selected ? '#bbbbbb3d' : '#fff'};
+  background: ${props => props.selected ? '#f3f3f387' : '#fff'};
   box-shadow: ${props => props.selected ? 'rgb(0 0 0 / 35%) 0px 50px 90px' : 'rgba(0, 0, 0, 0.35) 0px 5px 15px'};
   padding: 30px;
   border-radius: 10px;
   cursor: pointer;
+  transition: .1s ease-in-out;
   ${({ stared }) => stared && 'pointer-events: none;'};
 
   &::before {
@@ -15,12 +16,11 @@ export const CardContainer = styled.div`
   &:hover {
     background: #f3f3f3;
     box-shadow: rgb(0 0 0 / 55%) 0px 0px 50px;
-    transition: 0.05s ease-in-out;
   }
 
   svg {
     font-size: 28px;
-    ${({ selected }) => selected && 'filter: drop-shadow(0px 0px 22px rgba(0, 0, 0, 2));'};
+    ${({ selected }) => selected && 'filter: drop-shadow(0px 0px 18px rgba(0, 0, 0, 2));'};
     color: ${({ selected }) => selected ? '#e62424' : '#9e9e9e'};
   }
 

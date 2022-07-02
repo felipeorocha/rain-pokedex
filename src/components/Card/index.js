@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   CardContainer,
   CardInfo,
@@ -9,21 +8,36 @@ import { FaHeart } from "react-icons/fa";
 
 import { useStared } from '../../state/providers/stared';
 
-const Card = ({ pokemon, stared: choosen, choosenStared }) => {
-  const [selected, setSelected] = useState(false);
+const Card = ({ pokemon, stared: choosen }) => {
   const { stared, addPoke, removePoke } = useStared();
 
-  const { name, sprites, types, weight, height, abilities } = pokemon
+  const {
+    name,
+    sprites,
+    types,
+    weight,
+    height,
+    abilities
+  } = pokemon
+
+  const checkSelected = () => stared.map(item => item.name).includes(name)
   
   const handleSelect = () => {
-    setSelected(!selected);
-
-    return stared.map(item => item.name).includes(name) ? removePoke(pokemon) : addPoke({ name, sprites, types, weight, height, abilities })
+    return checkSelected()
+      ? removePoke(pokemon)
+      : addPoke({
+        name,
+        sprites,
+        types,
+        weight,
+        height,
+        abilities
+      })
   };
 
   return (
-    <CardContainer onClick={handleSelect} selected={selected || choosenStared} stared={choosen}>
-      <FaHeart />
+    <CardContainer onClick={handleSelect} selected={checkSelected()} stared={choosen}>
+      { !choosen && <FaHeart />}
       <div className="Card__img">
         <img src={sprites.front_default} alt="" />
       </div>

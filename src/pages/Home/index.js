@@ -88,7 +88,7 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <>
       { loading ? <Loader /> : (
         <>
           <Search />
@@ -110,7 +110,7 @@ const Home = () => {
           </ButtonsContainer>
         </>
       )}
-    </div>
+    </>
   );
 }
 

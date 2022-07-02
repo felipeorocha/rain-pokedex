@@ -24,7 +24,7 @@ const Stared = ({ history }) => {
     <>
       <GridContainer>
         {staredItems.length === 0 ? emptyStared() : staredItems.map((pokemon, index) => {
-          return <Card key={index} pokemon={pokemon} stared choosenStared />          
+          return <Card key={index} pokemon={pokemon} stared />          
         })}
       </GridContainer>
       <Button onClick={redirToHome}>Back to home</Button>  
